@@ -11,7 +11,7 @@ Time spent: **4** hours spent in total
 The following **required** functionality is completed:
 
 * [x] User can **view a list of todo items**
-* [ ] User can **successfully add and remove items** from the todo list
+* [x] User can **successfully add and remove items** from the todo list
 * [x] User's **list of items persisted** upon modification and and retrieved properly on app restart
 
 The following **optional** features are implemented:
@@ -32,11 +32,14 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+### Difficulties
+* Emulator was slowing down/freezing computer until I switched to one with a lower resolution
+* Importing the wrong FileUtils
+* While submitting, Android Studio has a GitHub login bug
 
 ## License
 
-    Copyright 2021 [name of copyright owner]
+    Copyright 2021 Rachelle Hu
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
