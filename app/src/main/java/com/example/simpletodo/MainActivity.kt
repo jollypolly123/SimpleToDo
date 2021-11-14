@@ -1,7 +1,10 @@
 package com.example.simpletodo
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.content.Intent
+import android.view.View
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
@@ -11,6 +14,8 @@ import java.io.File
 import org.apache.commons.io.FileUtils
 import java.io.IOException
 import java.nio.charset.Charset
+import java.util.Date
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,11 +31,26 @@ class MainActivity : AppCompatActivity() {
                 // remove item from list
                 listOfTasks.removeAt(position)
                 // notify adapter that data set changed
-                adapter.notifyDataSetChanged()
+                adapter.notifyItemRemoved(position)
 
                 saveItems()
             }
+        }
 
+        val editTaskListener = object : TaskItemAdapter.EditTaskListener {
+            override fun editTask(position: Int) {
+                // remove item from list
+                val editText = listOfTasks.elementAt(position)
+                Log.i("TaskItemAdapter", "Item $editText")
+
+                val LAUNCH_SECOND_ACTIVITY = 1
+                val intent = Intent(this@MainActivity, EditTask::class.java)
+                intent.putExtra("Task", editText)
+                intent.putExtra("Position", position)
+
+                startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY)
+
+            }
         }
 
         loadItems()
@@ -38,7 +58,8 @@ class MainActivity : AppCompatActivity() {
         // look up recyclerview in layout
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         // create adapter passing in sample user data
-        val adapter = TaskItemAdapter(listOfTasks, onLongClickListener)
+        adapter = TaskItemAdapter(listOfTasks, onLongClickListener, editTaskListener)
+
         // attach adapter to recyclerview to populate items
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -62,6 +83,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK) {
+            val task: String = data!!.getStringExtra("Task").toString()
+            val pos: Int = data.getIntExtra("Position", 0)
+            Log.i("onActivityResult", "Item $task $pos")
+            // update list
+            listOfTasks[pos] = task
+
+            // notify adapter that data set changed
+            adapter.notifyItemChanged(pos)
+
+            saveItems()
+        }
+
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
     // save data that user input
     // save data by writing and reading from file
 
@@ -77,9 +115,6 @@ class MainActivity : AppCompatActivity() {
         } catch (ioException: IOException) {
             ioException.printStackTrace()
         }
-//        listOfTasks.add("sample task")
-//        listOfTasks.add("another sample")
-
     }
 
     // save items by writing into data file

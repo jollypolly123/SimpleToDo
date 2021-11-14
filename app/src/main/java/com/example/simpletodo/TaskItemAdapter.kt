@@ -6,10 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.core.content.ContextCompat.startActivity
+
+import android.content.Intent
+import androidx.core.content.ContextCompat
+
 
 // Tells recyclerview how to display data given
 class TaskItemAdapter(val listOfItems: List<String>,
-                      val longClickListener: OnLongClickListener) :
+                      val longClickListener: OnLongClickListener,
+                      val onEditTask: EditTaskListener) :
     RecyclerView.Adapter<TaskItemAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -19,8 +25,11 @@ class TaskItemAdapter(val listOfItems: List<String>,
         init {
             itemView.setOnLongClickListener {
                 longClickListener.onItemLongClicked(adapterPosition)
-                Log.i("bestie", "hey bestie")
+                Log.i("TaskItemAdapter", "Item deleted: $adapterPosition")
                 true
+            }
+            itemView.setOnClickListener {
+                onEditTask.editTask(adapterPosition)
             }
         }
 
@@ -28,6 +37,10 @@ class TaskItemAdapter(val listOfItems: List<String>,
 
     interface OnLongClickListener {
         fun onItemLongClicked(position: Int)
+    }
+
+    interface EditTaskListener {
+        fun editTask(position: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
