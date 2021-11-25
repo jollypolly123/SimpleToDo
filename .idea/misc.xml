@@ -3,7 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/jolly/AndroidStudioProjects/SimpleToDo/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/jolly/AndroidStudioProjects/SimpleToDo/app/src/main/res/layout/activity_main.xml" value="0.152" />
+        <entry key="..\:/Users/jolly/AndroidStudioProjects/SimpleToDo/app/src/main/res/layout/date_editor.xml" value="0.16458333333333333" />
         <entry key="..\:/Users/jolly/AndroidStudioProjects/SimpleToDo/app/src/main/res/layout/edit_task.xml" value="0.264" />
         <entry key="..\:/Users/jolly/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/simple_list_item_1.xml" value="0.264" />
       </map>
