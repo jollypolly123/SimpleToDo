@@ -27,11 +27,14 @@ import android.widget.*
 import com.google.android.material.datepicker.MaterialDatePicker.Builder.datePicker
 import java.text.SimpleDateFormat
 import java.util.*
+import androidx.recyclerview.widget.GridLayoutManager
+
+
+
 
 class MainActivity : AppCompatActivity() {
 
-    var listOfTasks = mutableListOf<String>() // mutableListOf<MutableList<String>>()
-    var taskObject = mutableListOf<String>()
+    var listOfTasks = mutableListOf<String>()
     lateinit var adapter: TaskItemAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             val inflater:LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
             // Inflate a custom view using layout inflater
-            val view = inflater.inflate(R.layout.date_editor,null)
+            val view = inflater.inflate(R.layout.date_editor, null)
 
             // Initialize a new instance of popup window
             val popupWindow = PopupWindow(
@@ -53,26 +56,16 @@ class MainActivity : AppCompatActivity() {
                     LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
                     LinearLayout.LayoutParams.WRAP_CONTENT // Window height
             )
+            popupWindow.elevation = 10.0F
 
-            // Set an elevation for the popup window
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                popupWindow.elevation = 10.0F
-            }
+            val slideIn = Slide()
+            slideIn.slideEdge = Gravity.TOP
+            popupWindow.enterTransition = slideIn
 
-
-            // If API level 23 or higher then execute the code
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                // Create a new slide animation for popup window enter transition
-                val slideIn = Slide()
-                slideIn.slideEdge = Gravity.TOP
-                popupWindow.enterTransition = slideIn
-
-                // Slide animation for popup window exit transition
-                val slideOut = Slide()
-                slideOut.slideEdge = Gravity.RIGHT
-                popupWindow.exitTransition = slideOut
-
-            }
+            // Slide animation for popup window exit transition
+            val slideOut = Slide()
+            slideOut.slideEdge = Gravity.TOP
+            popupWindow.exitTransition = slideOut
 
             // Get the widgets reference from custom view
             val buttonPopup = view.findViewById<Button>(R.id.button_popup)
@@ -80,8 +73,6 @@ class MainActivity : AppCompatActivity() {
 
             // Set a click listener for popup's button widget
             buttonPopup.setOnClickListener{
-                // Dismiss the popup window
-//                val userInput = dateSelect
                 val day: Int = dateSelect.dayOfMonth
                 val month: Int = dateSelect.month
                 val year: Int = dateSelect.year
@@ -89,10 +80,9 @@ class MainActivity : AppCompatActivity() {
                 val calendar: Calendar = Calendar.getInstance()
                 calendar.set(year, month, day)
 
-                taskItemDate = SimpleDateFormat("dd/MM/yyyy").format(calendar.time).toString()
+                taskItemDate = SimpleDateFormat("MM/dd/yyyy", Locale.US).format(calendar.time).toString()
 
-                Log.i("buttonPopup", "Item $taskItemDate")
-
+                // Dismiss the popup window
                 popupWindow.dismiss()
             }
 
@@ -102,6 +92,7 @@ class MainActivity : AppCompatActivity() {
                 val mySnackbar = Snackbar.make(findViewById(R.id.mainActivity),
                     "Date recorded",
                     Snackbar.LENGTH_SHORT)
+                mySnackbar.anchorView = findViewById(R.id.button)
                 mySnackbar.show()
             }
 
@@ -132,12 +123,12 @@ class MainActivity : AppCompatActivity() {
                 val editText = listOfTasks.elementAt(position)
                 Log.i("TaskItemAdapter", "Item $editText")
 
-                val LAUNCH_SECOND_ACTIVITY = 1
+                val editingTask = 1
                 val intent = Intent(this@MainActivity, EditTask::class.java)
                 intent.putExtra("Task", editText)
                 intent.putExtra("Position", position)
 
-                startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY)
+                startActivityForResult(intent, editingTask)
             }
         }
 
@@ -153,18 +144,17 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         val inputField = findViewById<EditText>(R.id.addTaskField)
-//        val dateField = findViewById<EditText>(R.id.editTextDate)
-
+        val descField = findViewById<EditText>(R.id.taskDescField)
         // Detect when user clicks on Add button
         findViewById<Button>(R.id.button).setOnClickListener {
             // get text that user inputs into addTaskField
             val userInput = inputField.text.toString()
+            val userDesc = descField.text.toString()
 
-            val taskItem = mutableListOf(userInput, taskItemDate)
-            Log.i("add", "Item $taskItem")
+            val taskItem = "$userInput |~| $taskItemDate |~| $userDesc"
 
             // add string to list of tasks listOfTasks
-            listOfTasks.add(userInput)
+            listOfTasks.add(taskItem)
             // notify adapter that data changed
             adapter.notifyItemInserted(listOfTasks.size - 1)
 
@@ -172,11 +162,13 @@ class MainActivity : AppCompatActivity() {
             val mySnackbar = Snackbar.make(findViewById(R.id.mainActivity),
                     "Task added: $userInput",
                     Snackbar.LENGTH_SHORT)
+            mySnackbar.anchorView = findViewById(R.id.button)
             mySnackbar.show()
 
             // reset text field
             inputField.setText("")
             taskItemDate = ""
+            descField.setText("")
 
             saveItems()
         }
@@ -203,12 +195,12 @@ class MainActivity : AppCompatActivity() {
     // save data by writing and reading from file
 
     // get needed file
-    fun getDataFile() : File {
+    private fun getDataFile() : File {
         return File(filesDir, "data.txt")
     }
 
     // load items by reading every line in data file
-    fun loadItems() {
+    private fun loadItems() {
         try {
             listOfTasks = FileUtils.readLines(getDataFile(), Charset.defaultCharset())
         } catch (ioException: IOException) {
@@ -220,7 +212,6 @@ class MainActivity : AppCompatActivity() {
     fun saveItems() {
         try {
             FileUtils.writeLines(getDataFile(), listOfTasks)
-            Log.i("ok", FileUtils.readLines(getDataFile(), Charset.defaultCharset()).toString())
         } catch (ioException: IOException) {
             ioException.printStackTrace()
         }

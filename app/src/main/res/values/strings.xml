@@ -7,4 +7,6 @@
     <string name="date_due">Date Due</string>
     <string name="done">Done</string>
     <string name="select_date">Select Date</string>
+    <string name="task_description">Task description</string>
+    <string name="description">Description:</string>
 </resources>

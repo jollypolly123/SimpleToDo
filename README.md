@@ -4,7 +4,7 @@
 
 Submitted by: **Rachelle Hu**
 
-Time spent: **9.25** hours spent in total
+Time spent: **16.75** hours spent in total
 
 ## User Stories
 
@@ -20,8 +20,8 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-* [ ] Add date to task
-* [ ] Add description to task
+* [x] Add date to task
+* [x] Add description to task
 
 ## Video Walkthrough
 
@@ -35,8 +35,8 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ### Difficulties
 * Emulator was slowing down/freezing computer until I switched to one with a lower resolution
-* Importing the wrong FileUtils
-* While submitting, Android Studio has a GitHub login bug
+* While submitting, Android Studio GitHub login bug
+* More emulator problems (space on disk, configuration)
 
 ## License
 

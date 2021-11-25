@@ -6,21 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.core.content.ContextCompat.startActivity
-
-import android.content.Intent
-import androidx.core.content.ContextCompat
 
 
 // Tells recyclerview how to display data given
-class TaskItemAdapter(val listOfItems: List<String>,
-                      val longClickListener: OnLongClickListener,
-                      val onEditTask: EditTaskListener) :
-    RecyclerView.Adapter<TaskItemAdapter.ViewHolder>() {
+class TaskItemAdapter(
+    private val listOfItems: List<String>,
+    val longClickListener: OnLongClickListener,
+    val onEditTask: EditTaskListener) :
+RecyclerView.Adapter<TaskItemAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         // store references to elements in layout view
-        val textView: TextView = itemView.findViewById(android.R.id.text1)
+        val taskName: TextView = itemView.findViewById(android.R.id.title)
+        val taskDate: TextView = itemView.findViewById(android.R.id.text1)
+        val taskDesc: TextView = itemView.findViewById(android.R.id.text2)
 
         init {
             itemView.setOnLongClickListener {
@@ -47,16 +46,18 @@ class TaskItemAdapter(val listOfItems: List<String>,
         val context = parent.context
         val inflater = LayoutInflater.from(context)
 
-        val contactView = inflater.inflate(android.R.layout.simple_list_item_1, parent, false)
+        val contactView = inflater.inflate(R.layout.task_list_item, parent, false)
 
         return ViewHolder(contactView)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // get data model based on position
-        val item = listOfItems.get(position)
+        val item = listOfItems[position].split("|~|")
 
-        holder.textView.text = item
+        holder.taskName.text = item[0].trim()
+        holder.taskDate.text = item[1].trim()
+        holder.taskDesc.text = item[2].trim()
     }
 
     override fun getItemCount(): Int {

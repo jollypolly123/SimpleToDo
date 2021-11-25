@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:hint="@string/add_a_task"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/taskDescField"
         app:layout_constraintEnd_toStartOf="@+id/dateBtn"
         app:layout_constraintStart_toStartOf="parent"
         android:autofillHints=""
@@ -34,8 +34,9 @@
         android:id="@+id/dateBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/taskDescField"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView"
         app:layout_constraintStart_toEndOf="@+id/addTaskField"
         app:layout_constraintEnd_toStartOf="@+id/button"
         android:src="@drawable/ic_baseline_calendar_today_24"
@@ -47,6 +48,19 @@
         android:layout_height="wrap_content"
         android:text="@string/add"
         android:layout_margin="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/taskDescField"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/taskDescField"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="@string/task_description"
+        app:layout_constraintTop_toBottomOf="@+id/dateBtn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:autofillHints=""
+        android:inputType="textNoSuggestions" />
 </androidx.constraintlayout.widget.ConstraintLayout>

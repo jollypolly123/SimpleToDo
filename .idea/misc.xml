@@ -3,10 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/jolly/AndroidStudioProjects/SimpleToDo/app/src/main/res/layout/activity_main.xml" value="0.152" />
+        <entry key="..\:/Users/jolly/AndroidStudioProjects/SimpleToDo/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/jolly/AndroidStudioProjects/SimpleToDo/app/src/main/res/layout/date_editor.xml" value="0.16458333333333333" />
         <entry key="..\:/Users/jolly/AndroidStudioProjects/SimpleToDo/app/src/main/res/layout/edit_task.xml" value="0.264" />
+        <entry key="..\:/Users/jolly/AndroidStudioProjects/SimpleToDo/app/src/main/res/layout/task_list_item.xml" value="0.264" />
+        <entry key="..\:/Users/jolly/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/accessibility_button_chooser.xml" value="0.4" />
+        <entry key="..\:/Users/jolly/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/activity_list.xml" value="0.4" />
+        <entry key="..\:/Users/jolly/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/activity_list_item.xml" value="0.4" />
+        <entry key="..\:/Users/jolly/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/calendar_view.xml" value="0.13958333333333334" />
+        <entry key="..\:/Users/jolly/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/date_picker_header_material.xml" value="0.13958333333333334" />
+        <entry key="..\:/Users/jolly/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/default_navigation.xml" value="0.4" />
+        <entry key="..\:/Users/jolly/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/simple_account_item.xml" value="0.13958333333333334" />
+        <entry key="..\:/Users/jolly/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/simple_expandable_list_item_1.xml" value="0.13958333333333334" />
         <entry key="..\:/Users/jolly/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/simple_list_item_1.xml" value="0.264" />
+        <entry key="..\:/Users/jolly/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/simple_list_item_multiple_choice.xml" value="0.2" />
+        <entry key="..\:/Users/jolly/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/simple_spinner_item.xml" value="0.4" />
       </map>
     </option>
   </component>
